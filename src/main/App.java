@@ -15,18 +15,29 @@ public class App {
 
     public static void runEjercicio3(){
         ArbolBinario arbolBinario = new ArbolBinario();
-        ListLevels levels  = new ListLevels();
+        ListLevels levels = new ListLevels();
 
-        int[] valores = {4 , 2 , 7 , 1 , 3 , 6 , 9};
+        int [] valores = {4, 2, 7, 1, 3, 6, 9};
 
-        // Ingresar cada valor al árbol
-        for (int i = 0; i < valores.length; i++) {
+        for (int i = 0; i < valores.length; i++){
             arbolBinario.insert(valores[i]);
         }
-
-        arbolBinario.printTree();
-        List<List<Node>> listaDeNiveles = levels.ListLeves(arbolBinario.getRoot());
         
+        System.out.println("Input: ");
+        arbolBinario.printTree();
+
+        List<List<Node>> lista = levels.listLevels(arbolBinario.getRoot());
+        
+        System.out.println("Output: ");
+        for(List<Node> nivel : lista){
+            for (int i = 0; i < nivel.size(); i++) {
+                System.out.print(nivel.get(i).getValue());
+                if(i < nivel.size() - 1){
+                    System.out.print(" -> ");
+                }
+            }
+            System.out.println();
+        }  
     }
 
     public static void runArbolBinario(){

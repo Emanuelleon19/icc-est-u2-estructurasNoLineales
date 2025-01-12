@@ -1,43 +1,40 @@
 package main.Ejercicio_03_listLevels;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
+
 import main.Materia.Models.Node;
 
 public class ListLevels {
     
-    public List<List<Node>> ListLeves(Node root){
-        List<List<Node>> levels = new ArrayList<>();
-        
-        if (root == null) {
-            return null; 
+    public List<List<Node>> listLevels(Node root){
+        List<List<Node>> lista = new ArrayList<>();
+        if(root == null){
+            return null;
         }
-
-        LinkedList<Node> queue = new LinkedList<>();
-        queue.add(root); 
+        Queue<Node> cola = new LinkedList<>();
+        cola.add(root);
         
-        while (!queue.isEmpty()) {
-            int levelSize = queue.size();
-            
-            List<Node> currentLevel = new ArrayList<>();
-            
-            for (int i = 0; i < levelSize; i++) {
-                Node currentNode = queue.poll(); 
-                currentLevel.add(currentNode);   
-                
-                if (currentNode.getLeft() != null) {
-                    queue.add(currentNode.getLeft());
+        while(!cola.isEmpty()){
+            int nivel = cola.size();
+            List<Node> nivelAct = new ArrayList<>();
+
+            for(int i = 0; i < nivel; i++){
+                Node actual = cola.poll();
+                nivelAct.add(actual);
+
+                if(actual.getLeft() != null){
+                    cola.add(actual.getLeft());
                 }
-                if (currentNode.getRight() != null) {
-                    queue.add(currentNode.getRight());
+
+                if(actual.getRight() != null){
+                    cola.add(actual.getRight());
                 }
             }
-            
-            levels.add(currentLevel);
-        }
-        
-        return levels;
+             
+            lista.add(nivelAct);
+        }  
+        return lista;           
     }
+   
 }
 
