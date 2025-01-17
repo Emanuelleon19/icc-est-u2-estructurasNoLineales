@@ -8,7 +8,9 @@ import main.Ejercicio_04_depth.Depth;
 import main.Materia.Controllers.ArbolAVL;
 import main.Materia.Controllers.ArbolBinario;
 import main.Materia.Controllers.ArbolRecorridos;
+import main.Materia.Controllers.Graph;
 import main.Materia.Models.Node;
+import main.Materia.Models.NodeG;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -19,10 +21,35 @@ public class App {
 
         //Ejercicios del deber 
         //----------------
-        runEjercicio1();
+        //runEjercicio1();
         //runEjercicio2();
         //runEjercicio4();
         //-----------------
+
+        runGraph();
+    }
+    public static void runGraph(){
+        Graph graph = new Graph();
+        
+        NodeG node1 = graph.addNode(5);
+        NodeG node2 = graph.addNode(7);
+        NodeG node3 = graph.addNode(9);
+        NodeG node4 = graph.addNode(11);
+        NodeG node5 = graph.addNode(3);
+
+        graph.addEdge(node1, node2);
+        graph.addEdge(node1, node3);
+        graph.addEdge(node1, node5);
+        graph.addEdge(node2, node3);
+        graph.addEdge(node3, node5);
+        graph.addEdge(node4, node5);
+
+
+
+
+        System.out.println("Grafo (Lista de Adyacencia):");
+        graph.printGraph();
+
     }
 
     public static void runEjercicio1() {
