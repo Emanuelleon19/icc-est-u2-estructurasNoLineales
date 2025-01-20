@@ -1,7 +1,11 @@
 package main.Materia.Controllers;
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 import main.Materia.Models.NodeG;
 
 public class Graph {
@@ -19,7 +23,11 @@ public class Graph {
 
     public void addEdge(NodeG src, NodeG dest) {
         src.addNeighbor(dest);
-        dest.addNeighbor(src); 
+        dest.addNeighbor(src);
+    }
+
+    public void addEdgeUnited(NodeG src, NodeG dest) {
+        src.addNeighbor(dest);
     }
 
     public void printGraph() {
@@ -32,20 +40,76 @@ public class Graph {
         }
     }
 
-    public void getDFS(NodeG startNode) {
-
+    public void getDFS(NodeG start) {
+        Set<NodeG> visitados = new HashSet<>();
+        System.out.println("DFS desde el node: " + start.getValue() + " :");
+        getDFSUtil(start, visitados);
+        System.out.println();
     }
 
-    public void getBFS(NodeG startNode) {
- 
+    private void getDFSUtil(NodeG node, Set<NodeG> visitados) {
+        if (visitados.contains(node)) {
+            return;
+        }
+        System.out.print(node.getValue() + " ");
+        visitados.add(node);
+
+        for (NodeG neighbor : node.getNeighbors()) {
+            getDFSUtil(neighbor, visitados);
+        }
+    }
+    public void getDFS2(NodeG start, int valor) {
+        Set<NodeG> visitados = new HashSet<>();
+        System.out.println("DFS desde el node: " + start.getValue() + " :");
+        if (!getDFSUtil(start, visitados, valor)) {
+            System.out.println("Valor no encontrado.");
+        }
+        System.out.println();
+    }
+    private boolean getDFSUtil(NodeG node, Set<NodeG> visitados, int valor) {
+        if (visitados.contains(node)) {
+            return false;
+        }
+        System.out.print(node.getValue() + " ");
+        visitados.add(node);
+        if (node.getValue() == valor) {
+            return true;
+        }
+        for (NodeG neighbor : node.getNeighbors()) {
+            if (getDFSUtil(neighbor, visitados, valor)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+
+
+    public void getBFS(NodeG start) {
+        Set<NodeG> visitados = new HashSet<>();
+        Queue<NodeG> cola= new LinkedList<>();
+
+        System.out.println("BFS desdde el nodo " + start.getValue() + " :");
+        cola.add(start);
+        visitados.add(start);
+
+        while (!cola.isEmpty()) {
+            NodeG actual = cola.poll();
+            System.out.print(actual.getValue() + " ");
+            for (NodeG neighbor : actual.getNeighbors()) {
+                if (!visitados.contains(neighbor)) {
+                    visitados.add(neighbor);
+                    cola.add(neighbor);
+                }
+            }
+        }
     }
 
     public int[][] getAdjacencyMatrix() {
-            return null;
- 
+        return null;
+
     }
 
     public void printAdjacencyMatrix() {
     }
 }
-
